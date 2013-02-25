@@ -14,6 +14,9 @@
     <div>
       <input type="text" id="taskInput" placeholder="Enter task" />
       <button onclick="addTask()">Add</button>
+      <button onclick="completeAllTasks()">Complete All</button>
+      <button onclick="deleteAllTasks()">Delete All</button>
+      <button onclick="deleteCompletedTasks()">Delete Completed</button>
     </div>
 
     <ul id="taskList"></ul>
@@ -41,6 +44,41 @@
         updateTaskList();
       }
 
+      function deleteTask(index) {
+        tasks.splice(index, 1);
+        updateTaskList();
+      }
+
+      function completeAllTasks() {
+        var confirmed = confirm("Are you sure you want to complete all tasks?");
+        if (confirmed) {
+          tasks.forEach(function (task) {
+            task.completed = true;
+          });
+          updateTaskList();
+        }
+      }
+
+      function deleteAllTasks() {
+        var confirmed = confirm("Are you sure you want to delete all tasks?");
+        if (confirmed) {
+          tasks = [];
+          updateTaskList();
+        }
+      }
+
+      function deleteCompletedTasks() {
+        var confirmed = confirm(
+          "Are you sure you want to delete all completed tasks?"
+        );
+        if (confirmed) {
+          tasks = tasks.filter(function (task) {
+            return !task.completed;
+          });
+          updateTaskList();
+        }
+      }
+
       function updateTaskList() {
         var taskList = document.getElementById("taskList");
         taskList.innerHTML = "";
@@ -62,6 +100,16 @@
           })(i);
 
           taskItem.appendChild(toggleButton);
+
+          var deleteButton = document.createElement("button");
+          deleteButton.innerText = "Delete";
+          deleteButton.onclick = (function (i) {
+            return function () {
+              deleteTask(i);
+            };
+          })(i);
+
+          taskItem.appendChild(deleteButton);
 
           taskList.appendChild(taskItem);
         }
