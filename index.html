@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>Todo List</title>
+    <style>
+      .completed {
+        text-decoration: line-through;
+      }
+    </style>
   </head>
   <body>
     <h1>Todo List</h1>
@@ -25,24 +30,39 @@
           return;
         }
 
-        tasks.push({ text: taskText });
+        tasks.push({ text: taskText, completed: false });
         taskInput.value = "";
 
         updateTaskList();
       }
 
+      function toggleTaskStatus(index) {
+        tasks[index].completed = !tasks[index].completed;
+        updateTaskList();
+      }
+
       function updateTaskList() {
         var taskList = document.getElementById("taskList");
-
-        while (taskList.firstChild) {
-          taskList.removeChild(taskList.firstChild);
-        }
+        taskList.innerHTML = "";
 
         for (var i = 0; i < tasks.length; i++) {
           var taskItem = document.createElement("li");
-          var taskText = document.createTextNode(tasks[i].text);
+          taskItem.innerText = tasks[i].text;
 
-          taskItem.appendChild(taskText);
+          if (tasks[i].completed) {
+            taskItem.classList.add("completed");
+          }
+
+          var toggleButton = document.createElement("button");
+          toggleButton.innerText = "Toggle";
+          toggleButton.onclick = (function (i) {
+            return function () {
+              toggleTaskStatus(i);
+            };
+          })(i);
+
+          taskItem.appendChild(toggleButton);
+
           taskList.appendChild(taskItem);
         }
       }
