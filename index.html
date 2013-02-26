@@ -22,7 +22,11 @@
     <ul id="taskList"></ul>
 
     <script>
-      var tasks = [];
+      var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      function saveToLocalStorage() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
 
       function addTask() {
         var taskInput = document.getElementById("taskInput");
@@ -37,16 +41,19 @@
         taskInput.value = "";
 
         updateTaskList();
+        saveToLocalStorage();
       }
 
       function toggleTaskStatus(index) {
         tasks[index].completed = !tasks[index].completed;
         updateTaskList();
+        saveToLocalStorage();
       }
 
       function deleteTask(index) {
         tasks.splice(index, 1);
         updateTaskList();
+        saveToLocalStorage();
       }
 
       function completeAllTasks() {
@@ -56,6 +63,7 @@
             task.completed = true;
           });
           updateTaskList();
+          saveToLocalStorage();
         }
       }
 
@@ -64,6 +72,7 @@
         if (confirmed) {
           tasks = [];
           updateTaskList();
+          saveToLocalStorage();
         }
       }
 
@@ -76,6 +85,7 @@
             return !task.completed;
           });
           updateTaskList();
+          saveToLocalStorage();
         }
       }
 
@@ -114,6 +124,8 @@
           taskList.appendChild(taskItem);
         }
       }
+
+      updateTaskList();
     </script>
   </body>
 </html>
