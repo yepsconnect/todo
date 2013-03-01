@@ -75,50 +75,52 @@ function deleteCompletedTasks() {
   }
 }
 
+function createTaskItem(task) {
+  var taskItem = document.createElement("li");
+  taskItem.innerText = task.text;
+
+  if (task.completed) {
+    taskItem.classList.add("completed");
+  }
+
+  var actionButtons = document.createElement("div");
+  actionButtons.classList.add("action-buttons");
+
+  var toggleButton = document.createElement("button");
+  toggleButton.innerText = "Toggle";
+  toggleButton.onclick = function () {
+    toggleTaskStatus(tasks.indexOf(task));
+  };
+
+  var editButton = document.createElement("button");
+  editButton.innerText = "Edit";
+  editButton.onclick = function () {
+    editTask(tasks.indexOf(task));
+  };
+
+  var deleteButton = document.createElement("button");
+  deleteButton.innerText = "Delete";
+  deleteButton.onclick = function () {
+    deleteTask(tasks.indexOf(task));
+  };
+
+  actionButtons.appendChild(toggleButton);
+  actionButtons.appendChild(editButton);
+  actionButtons.appendChild(deleteButton);
+
+  taskItem.appendChild(actionButtons);
+
+  return taskItem;
+}
+
 function updateTaskList() {
   var taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
-  for (var i = 0; i < tasks.length; i++) {
-    var taskItem = document.createElement("li");
-    taskItem.innerText = tasks[i].text;
-
-    if (tasks[i].completed) {
-      taskItem.classList.add("completed");
-    }
-
-    var toggleButton = document.createElement("button");
-    toggleButton.innerText = "Toggle";
-    toggleButton.onclick = (function (i) {
-      return function () {
-        toggleTaskStatus(i);
-      };
-    })(i);
-
-    taskItem.appendChild(toggleButton);
-
-    var editButton = document.createElement("button");
-    editButton.innerText = "Edit";
-    editButton.onclick = (function (i) {
-      return function () {
-        editTask(i);
-      };
-    })(i);
-
-    taskItem.appendChild(editButton);
-
-    var deleteButton = document.createElement("button");
-    deleteButton.innerText = "Delete";
-    deleteButton.onclick = (function (i) {
-      return function () {
-        deleteTask(i);
-      };
-    })(i);
-
-    taskItem.appendChild(deleteButton);
-
+  tasks.forEach(function (task) {
+    var taskItem = createTaskItem(task);
     taskList.appendChild(taskItem);
-  }
+  });
 }
 
 updateTaskList();

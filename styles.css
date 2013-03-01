@@ -34,9 +34,9 @@ ul {
 }
 
 li {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
+  display: block;
+  margin-bottom: 5px;
+  overflow: hidden;
 }
 
 .completed {
@@ -45,5 +45,5 @@ li {
 }
 
 .action-buttons {
-  margin-left: auto;
+  float: right;
 }
