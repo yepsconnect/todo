@@ -20,6 +20,16 @@ function addTask() {
   saveToLocalStorage();
 }
 
+function editTask(index) {
+  var newTaskText = prompt("Edit task:", tasks[index].text);
+
+  if (newTaskText !== null) {
+    tasks[index].text = newTaskText.trim();
+    updateTaskList();
+    saveToLocalStorage();
+  }
+}
+
 function toggleTaskStatus(index) {
   tasks[index].completed = !tasks[index].completed;
   updateTaskList();
@@ -86,6 +96,16 @@ function updateTaskList() {
     })(i);
 
     taskItem.appendChild(toggleButton);
+
+    var editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.onclick = (function (i) {
+      return function () {
+        editTask(i);
+      };
+    })(i);
+
+    taskItem.appendChild(editButton);
 
     var deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
