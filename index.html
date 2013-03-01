@@ -8,14 +8,18 @@
     <h1>Todo List</h1>
 
     <div>
-      <input type="text" id="taskInput" placeholder="Enter task" />
-      <button onclick="addTask()">Add</button>
-      <button onclick="completeAllTasks()">Complete All</button>
-      <button onclick="deleteAllTasks()">Delete All</button>
-      <button onclick="deleteCompletedTasks()">Delete Completed</button>
+      <textarea id="taskInput" placeholder="Enter task"></textarea>
+      <div>
+        <button onclick="addTask()">Add</button>
+        <button onclick="completeAllTasks()">Complete All</button>
+        <button onclick="deleteAllTasks()">Delete All</button>
+        <button onclick="deleteCompletedTasks()">Delete Completed</button>
+      </div>
     </div>
-
-    <ul id="taskList"></ul>
+    <div class="taskListContainer">
+      <h2>My tasks</h2>
+      <ul id="taskList"></ul>
+    </div>
 
     <script src="script.js"></script>
   </body>

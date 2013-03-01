@@ -7,11 +7,14 @@ h1 {
   color: #333;
 }
 
-input[type="text"] {
+textarea {
+  width: 383px;
+  height: 80px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
+  resize: vertical;
 }
 
 button {
@@ -37,6 +40,7 @@ li {
   display: block;
   margin-bottom: 5px;
   overflow: hidden;
+  position: relative;
 }
 
 .completed {
@@ -46,4 +50,12 @@ li {
 
 .action-buttons {
   float: right;
+}
+
+.taskListContainer {
+  margin-top: 50px;
+}
+
+.taskListContainer h2 {
+  margin-bottom: 10px;
 }
